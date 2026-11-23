@@ -98,8 +98,33 @@
 </details>
 
 ## 2.2 实验方案
+### 2.2.1 模型优化
+| 序号 | 实验名称 | 实验目的 | 实验方法 | 配置 | 备注 |
+| --- | --- | --- | --- | --- | --- |
+| 01 | Baseline | 确立基线 | 基于 yolo11s-seg 预训练模型在 Grapes 数据集上完成全量微调 | arg.yaml | --- |
+| 02 | yolo11s-seg-HT | 提高 Mask mAP50-95 指标 | 在 Baseline 基础上完成超参数调优 | arg.yaml | 由于计算资源限制，暂时跳过该实验 |
+| 03 | yolo11s-seg-HT-SP | 减小模型参数量，同时保持良好 Mask mAP50-95 指标 | 在 yolo11s-seg-HT 基础上完成结构化模型剪枝 | arg.yaml | 由于 实验02 跳过，改成 实验06 |
+| 04 | yolo11s-seg-HT-SP-FT | 提高 Mask mAP50-95 指标，同时保持模型参数量不变 | 在 yolo11s-seg-HT-SP 基础上完成结构化模型剪枝 | arg.yaml | 由于 实验02 跳过，改成 实验07 |
+| 05 | yolo11s-seg-HT-SP-KD | 提高 Mask mAP50-95 指标，同时保持模型参数量不变 | 在 yolo11s-seg-HT-SP 基础上完成结构化模型剪枝 | arg.yaml | 由于 实验02 跳过，改成 实验08 |
+| 06 | yolo11s-seg-SP | 减小模型参数量，同时保持良好 Mask mAP50-95 指标 | 在 yolo11s-seg 基础上完成结构化模型剪枝 | arg.yaml | --- |
+| 07 | yolo11s-seg-SP-FT | 提高 Mask mAP50-95 指标，同时保持模型参数量不变 | 在 yolo11s-seg-SP 基础上完成结构化模型剪枝 | arg.yaml | --- |
+| 08 | yolo11s-seg-SP-KD | 提高 Mask mAP50-95 指标，同时保持模型参数量不变 | 在 yolo11s-seg-SP 基础上完成结构化模型剪枝 | arg.yaml | --- |
 
 ## 2.3 实验结果
+### 2.3.1 性能指标
+| 序号 | 实验名称 | Size（Pixels） | Box mAP50-95（%） | Mask mAP50-95（%） | Speed CPU ONNX（ms） | Params（M） | FLOPs（B） | 配置 | 备注 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 01 | Baseline | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
+| 02 | yolo11s-seg-HT | --- | --- | --- | --- | --- | --- | arg.yaml | 由于计算资源限制，暂时跳过该实验 |
+| 03 | yolo11s-seg-HT-SP | --- | --- | --- | --- | --- | --- | arg.yaml | 由于 实验02 跳过，改成 实验06 |
+| 04 | yolo11s-seg-HT-SP-FT | --- | --- | --- | --- | --- | --- | arg.yaml | 由于 实验02 跳过，改成 实验07 |
+| 05 | yolo11s-seg-HT-SP-KD | --- | --- | --- | --- | --- | --- | arg.yaml | 由于 实验02 跳过，改成 实验08 |
+| 06 | yolo11s-seg-SP | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
+| 07 | yolo11n-seg-SP-FT | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
+| 08 | yolo11n-seg-SP-KD | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
+
+
+### 2.3.2 可视化结果
 
 # 三、项目结构
 
@@ -157,4 +182,3 @@ image-seg/
 ```
 
 # 四、文件索引
-
