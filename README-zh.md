@@ -4,9 +4,11 @@
 
 # 一、项目背景
 
-基于 YOLO11 的葡萄果粒实例分割与模型压缩：面向葡萄果粒密集分布、相互遮挡和小目标场景，基于 YOLO11s-seg 完成实例分割微调，并探索结构化剪枝与特征蒸馏对精度、模型规模和推理延迟的影响。
+基于 YOLO11 的葡萄果粒实例分割：面向葡萄果粒密集分布、相互遮挡和小目标场景，基于 YOLO11s-seg 在 Grapes 数据集上完成模型微调，并探索结构化剪枝与特征蒸馏对精度、模型大小和推理延迟的影响。
 
-技术栈：Python、PyTorch、Ultralytics、Torch-Pruning、OpenCV；CPU 推理测试使用 ONNX Runtime。
+技术栈：Python、PyTorch、Ultralytics、Torch-Pruning、OpenCV、ONNX Runtime
+
+设备：
 
 # 二、项目内容
 ## 2.1 数据集
@@ -112,22 +114,23 @@
 
 ## 2.3 实验结果
 ### 2.3.1 性能指标
-| 序号 | 实验名称 | Size（Pixels） | Box mAP50-95（%） | Mask mAP50-95（%） | Speed CPU ONNX（ms） | Params（M） | FLOPs（B） | 配置 | 备注 |
+| 序号 | 实验名称 | Size（pixels） | Box mAP50-95（%） | Mask mAP50-95（%） | Speed CPU ONNX（ms） | Params（M） | FLOPs（B） | 配置 | 备注 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 01 | Baseline | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
+| 01 | Baseline | 640 | 92.41 | 92.21 | 92.24 ± 5.45 | 10.08 | 33.20 | arg.yaml | --- |
 | 02 | yolo11s-seg-HT | --- | --- | --- | --- | --- | --- | arg.yaml | 由于计算资源限制，暂时跳过该实验 |
 | 03 | yolo11s-seg-HT-SP | --- | --- | --- | --- | --- | --- | arg.yaml | 由于 实验02 跳过，改成 实验06 |
 | 04 | yolo11s-seg-HT-SP-FT | --- | --- | --- | --- | --- | --- | arg.yaml | 由于 实验02 跳过，改成 实验07 |
 | 05 | yolo11s-seg-HT-SP-KD | --- | --- | --- | --- | --- | --- | arg.yaml | 由于 实验02 跳过，改成 实验08 |
-| 06 | yolo11s-seg-SP | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
-| 07 | yolo11n-seg-SP-FT | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
-| 08 | yolo11n-seg-SP-KD | --- | --- | --- | --- | --- | --- | arg.yaml | --- |
+| 06 | yolo11s-seg-SP | 640 | 2.47 | 2.58 | 87.03 ± 4.17 | 8.42 | 30.53 | arg.yaml | --- |
+| 07 | yolo11s-seg-SP-FT | 640 | 91.34 | 91.21 | 85.96 ± 3.84 | 8.42 | 30.53 | arg.yaml | --- |
+| 08 | yolo11s-seg-SP-KD | 640 | 91.73 | 91.48 | 86.56 ± 4.49 | 8.42 | 30.53 | arg.yaml | --- |
 
 
 ### 2.3.2 可视化结果
 
 # 三、项目结构
 
+## 3.1 目录结构
 ```text
 image-seg/
 ├── checkpoints/                 # 模型权重层
