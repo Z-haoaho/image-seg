@@ -8,7 +8,7 @@
 
 指标要求：Mask mAP50-95（%）≥ 90.00%；Params ≤ 9.00M；Speed CPU ONNX ≤ 87.00 ± 5.00ms
 
-技术栈：Python、PyTorch、Ultralytics、Torch-Pruning、OpenCV、ONNX Runtime
+技术栈：Python、PyTorch、LabelMe、Ultralytics、Torch-Pruning、OpenCV、ONNX Runtime
 
 计算资源：（CPU）Intel Core i9-14900HX；（GPU）RTX 4060 Laptop GPU
 
