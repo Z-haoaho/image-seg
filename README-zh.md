@@ -44,17 +44,6 @@
     <tr>
       <td>夏黑（SummerBlack）</td>
     </tr>
-    <tr>
-      <td rowspan="3">--</td>
-      <td>--</td>
-      <td rowspan="3">--</td>
-      <td rowspan="3">--</td>
-      <td rowspan="3">--</td>
-      <td rowspan="3"><a href="#">点击下载</a></td>
-    </tr>
-    <tr>
-      <td>--</td>
-    </tr>
   </tbody>
 </table>
 
@@ -83,15 +72,6 @@
 
 ![每个实例的点数](assets/data/images/Grapes/每个实例的点数.png)
 
-
-</details>
-
-<details>
-<summary>-- 数据集图表（点击展开，共 -- 张）</summary>
-
-![--](assets/data/images/--.png)
-
-*图 1：--*
 
 </details>
 
