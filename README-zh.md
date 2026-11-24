@@ -6,11 +6,22 @@
 
 面向葡萄果粒密集分布、相互遮挡和小目标场景的实例分割任务，基于 YOLO11s-seg 在 Grapes 数据集上完成模型微调，并探索结构化剪枝与特征蒸馏对精度、模型大小和推理延迟的影响，找到符合要求的模型。
 
-核心指标要求：Mask mAP50-95（%）≥ 90.00%；Params ≤ 9.00M；Speed CPU ONNX ≤ 87.00 ± 5.00ms
+1. 核心指标要求
 
-技术栈：Python、PyTorch、Ultralytics、Torch-Pruning、OpenCV、ONNX Runtime
+Mask mAP50-95（%）≥ 90.00%
 
-设备：
+Params ≤ 9.00M
+
+Speed CPU ONNX ≤ 87.00 ± 5.00ms
+
+2. 设备资源
+
+CPU：Intel Core i9-14900HX
+
+GPU：RTX 4060 Laptop GPU
+
+3. 技术栈：Python、PyTorch、Ultralytics、Torch-Pruning、OpenCV、ONNX Runtime
+
 
 # 二、项目内容
 ## 2.1 数据集
