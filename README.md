@@ -2,7 +2,7 @@
 
 2026.10.24：创建图像分割项目
 
-2026.11.25: 上传 Grapes 数据集相关图表至 `assets/data/images/Grapes/`
+2026.11.25：上传 Grapes 数据集相关图表至 `assets/data/images/Grapes/`
 
 # 一、项目背景
 
