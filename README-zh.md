@@ -6,12 +6,20 @@
 
 面向葡萄果粒密集分布、相互遮挡和小目标场景的实例分割任务，基于 YOLO11s-seg 在 Grapes 数据集上完成模型微调，并探索结构化剪枝与特征蒸馏对精度、模型大小和推理延迟的影响，找到符合要求的模型。
 
-指标要求：Mask mAP50-95（%）≥ 90.00%；Params ≤ 9.00M；Speed CPU ONNX ≤ 87.00 ± 5.00ms
-
-技术栈：Python、PyTorch、LabelMe、Ultralytics、Torch-Pruning、OpenCV、ONNX Runtime
+| 依赖库 | 版本 | 
+| --- | --- |
+| Python | 3.10.22 |
+| PyTorch | 2.11.0+cu128 |
+| LabelMe | 6.3.1 |
+| Ultralytics | 8.4.208 |
+| Torch-Pruning | 1.6.1 |
+| Opencv-python | 5.0.0.93 |
+| numpy | 2.2.6 |
+| OpenCV(opencv-python) | 5.0.0.93 |
+| onnx | 1.23.2 |
+| ONNX Runtime | 1.23.2 |
 
 计算资源：（CPU）Intel Core i9-14900HX；（GPU）RTX 4060 Laptop GPU
-
 
 # 二、项目内容
 ## 2.1 数据集
@@ -80,31 +88,36 @@
 | 序号 | 实验名称 | 实验目的 | 实验方法 | 配置 | 备注 |
 | --- | --- | --- | --- | --- | --- |
 | 01 | Baseline | 确立基线 | 基于 yolo11s-seg 预训练模型在 Grapes 数据集上完成全量微调 |  [arg.yaml](assets/exps/Grapes/runs/exp-01/arg.yaml) | --- |
-| 02 | yolo11s-seg-HT | 判断调优后是否超越基线 | 在 Baseline 基础上完成超参数调优 | --- | 由于计算资源限制，暂时跳过该实验 |
-| 03 | yolo11s-seg-SP10 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-03/arg.yaml) | --- |
-| 04 | yolo11s-seg-SP20 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-04/arg.yaml) | --- |
-| 05 | yolo11s-seg-SP30 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-05/arg.yaml) | --- |
-| 06 | yolo11s-seg-SP40 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-06/arg.yaml) | --- |
-| 07 | yolo11s-seg-SP50 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-07/arg.yaml) | --- |
-| 08 | yolo11s-seg-SP50-FT | 测量继续全量微调训练能够恢复多少 | 在 yolo11s-seg-SP50 基础上完成模型通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-08/arg.yaml) | --- |
+| 02 | yolo11s-seg-HT | 判断调优后是否超越基线 | 在 Baseline 基础上使用遗传算法完成自动超参数调优 | --- | 由于计算资源限制，暂时跳过该实验 |
+| 03 | yolo11s-seg-SP10 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型 10% 通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-03/arg.yaml) | --- |
+| 04 | yolo11s-seg-SP20 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型 20% 通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-04/arg.yaml) | --- |
+| 05 | yolo11s-seg-SP30 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型 30% 通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-05/arg.yaml) | --- |
+| 06 | yolo11s-seg-SP40 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型 40% 通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-06/arg.yaml) | --- |
+| 07 | yolo11s-seg-SP50 | 压缩模型大小并测量剪枝造成的即时损伤 | 在 yolo11s-seg 基础上完成模型 50% 通道剪枝 | [arg.yaml](assets/exps/Grapes/runs/exp-07/arg.yaml) | --- |
+| 08 | yolo11s-seg-SP50-FT | 测量继续全量微调训练能够恢复多少 | 在 yolo11s-seg-SP50 基础上完成模型全量微调 | [arg.yaml](assets/exps/Grapes/runs/exp-08/arg.yaml) | --- |
 | 09 | yolo11s-seg-SP50-KD | 判断教师监督是否带来额外收益 | 以 yolo11s-seg-SP50 为学生，Baseline 为教师，完成模型特征蒸馏 | [arg.yaml](assets/exps/Grapes/runs/exp-09/arg.yaml) | --- |
 | 10 | yolo11n-seg-KD | 测量 yolo11n-seg 作为学生模型收益 | 以 yolo11n-seg 为学生，Baseline 为教师，完成模型特征蒸馏 | [arg.yaml](assets/exps/Grapes/runs/exp-10/arg.yaml) | --- |
+| 11 | yolo11s-seg-SP50-KD-HHT | 提高模型精度 | 在 yolo11s-seg-SP50-KD 基础上，基于结果分析和人工先验知识完成超参数调优 | [arg.yaml](assets/exps/Grapes/runs/exp-11/arg.yaml) | --- |
+| 12 | yolo11n-seg-KD-HHT | 提高模型精度 | 在 yolo11n-seg-KD 基础上，基于结果分析和人工先验知识完成超参数调优 | [arg.yaml](assets/exps/Grapes/runs/exp-12/arg.yaml) | --- |
 
 ## 2.3 实验结果
 ### 2.3.1 性能指标
+*注：Speed CPU ONNX计算方式：（CPU）Intel Core i9-14900HX*
+#### 总表
 | 序号 | 实验名称 | Size（pixels） | Box mAP50-95（%） | Mask mAP50-95（%） | Speed CPU ONNX（ms） | Params（M） | FLOPs（B） | 配置 | 备注 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| 01 | Baseline | 640 | 92.41 | 92.21 | 92.24 ± 5.45 | 10.08 | 33.20 |  [arg.yaml](assets/exps/Grapes/runs/exp-01/arg.yaml) | --- |
+| 01 | Baseline | 640 | 92.41 | 92.21 | 3582.8 ± 708.6 | 10.08 | 33.20 |  [arg.yaml](assets/exps/Grapes/runs/exp-01/arg.yaml) | --- |
 | 02 | yolo11s-seg-HT | --- | --- | --- | --- | --- | --- | --- | 由于计算资源限制，暂时跳过该实验 |
-| 03 | yolo11s-seg-SP10 | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-03/arg.yaml) | --- |
-| 04 | yolo11s-seg-SP20 | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-04/arg.yaml) | --- |
-| 05 | yolo11s-seg-SP30 | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-05/arg.yaml) | --- |
-| 06 | yolo11s-seg-SP40 | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-06/arg.yaml) | --- |
-| 07 | yolo11s-seg-SP50 | 640 | 2.47 | 2.58 | 87.03 ± 4.17 | 8.42 | 30.53 | [arg.yaml](assets/exps/Grapes/runs/exp-07/arg.yaml) | --- |
-| 08 | yolo11s-seg-SP50-FT | 640 | 91.34 | 91.21 | 85.96 ± 3.84 | 8.42 | 30.53 | [arg.yaml](assets/exps/Grapes/runs/exp-08/arg.yaml) | --- |
-| 09 | yolo11s-seg-SP50-KD | 640 | 91.73 | 91.48 | 86.56 ± 4.49 | 8.42 | 30.53 | [arg.yaml](assets/exps/Grapes/runs/exp-09/arg.yaml) | --- |
-| 10 | yolo11n-seg-KD | 640 | 89.82 | 89.92 | 33.80 ± 2.27 | 2.86 | 9.86 | [arg.yaml](assets/exps/Grapes/runs/exp-10/arg.yaml) | --- |
-
+| 03 | yolo11s-seg-SP10 | 640 | 84.66 | 82.50 | --- | 9.72 | 32.66 | [arg.yaml](assets/exps/Grapes/runs/exp-03/arg.yaml) | --- |
+| 04 | yolo11s-seg-SP20 | 640 | 63.85 | 56.15 | --- | 9.36 | 32.09 | [arg.yaml](assets/exps/Grapes/runs/exp-04/arg.yaml) | --- |
+| 05 | yolo11s-seg-SP30 | 640 | 43.38 | 37.80 | --- | 9.02 | 31.56 | [arg.yaml](assets/exps/Grapes/runs/exp-05/arg.yaml) | --- |
+| 06 | yolo11s-seg-SP40 | 640 | 6.40 | 5.97 | --- | 8.71 | 31.06 | [arg.yaml](assets/exps/Grapes/runs/exp-06/arg.yaml) | --- |
+| 07 | yolo11s-seg-SP50 | 640 | 2.47 | 2.58 | --- | 8.42 | 30.53 | [arg.yaml](assets/exps/Grapes/runs/exp-07/arg.yaml) | --- |
+| 08 | yolo11s-seg-SP50-FT | 640 | 91.34 | 91.21 | 3102.2 ± 613.7 | 8.42 | 30.53 | [arg.yaml](assets/exps/Grapes/runs/exp-08/arg.yaml) | --- |
+| 09 | yolo11s-seg-SP50-KD | 640 | 91.73 | 91.48 | 3033.2 ± 636.0 | 8.42 | 30.53 | [arg.yaml](assets/exps/Grapes/runs/exp-09/arg.yaml) | --- |
+| 10 | yolo11n-seg-KD | 640 | 89.82 | 89.92 | 1531.4 ± 371.3 | 2.86 | 9.86 | [arg.yaml](assets/exps/Grapes/runs/exp-10/arg.yaml) | --- |
+| 11 | yolo11s-seg-SP50-KD-HHT | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-11/arg.yaml) | --- |
+| 12 | yolo11n-seg-KD-HHT | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-12/arg.yaml) | --- |
 
 ### 2.3.2 可视化结果
 
@@ -113,8 +126,8 @@
 ## 3.1 目录结构
 ```text
 image-seg/
-├── checkpoints/                 # 模型权重层
-│   ├── downloads/               # 下载预训练权重（别人）
+├── assets/                      # 资产层
+│   ├── data/                    # 数据
 │   └── locals/                  # 本地训练权重（自己）
 ├── configs/                     # 配置层
 │   ├── data-processeds/         # 数据预处理配置
@@ -164,4 +177,4 @@ image-seg/
 └── requirements.txt             # 依赖库安装清单
 ```
 
-# 四、文件索引
+## 3.2 文件索引
