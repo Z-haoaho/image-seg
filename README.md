@@ -168,7 +168,7 @@ image-seg/
 │       └── 实验名称/             ### 实验结果（实验名称示例：<模型>_<数据集>_<关键变量>_<YYYYMMDD-HHMM>）
 ├── scripts/                     # 执行层
 │   └── train.py
-├── README.zh-CN.md              # 项目说明（中文）
+├── README.md              # 项目说明（中文）
 └── requirements.txt             # 依赖库安装清单
 ```
 
