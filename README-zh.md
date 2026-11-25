@@ -102,7 +102,7 @@
 
 ## 2.3 实验结果
 ### 2.3.1 性能指标
-*注：Speed CPU ONNX计算方式：（CPU）Intel Core i9-14900HX*
+*注：Speed CPU ONNX 计算方式：（CPU）Intel Core i9-14900HX 在验证集上多次运行取平均*
 #### 总表
 | 序号 | 实验名称 | Size（pixels） | Box mAP50-95（%） | Mask mAP50-95（%） | Speed CPU ONNX（ms） | Params（M） | FLOPs（B） | 配置 | 备注 |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -126,54 +126,38 @@
 ## 3.1 目录结构
 ```text
 image-seg/
-├── assets/                      # 资产层
-│   ├── data/                    # 数据
-│   └── locals/                  # 本地训练权重（自己）
+├── assets/                      # 资产层（人工维护）
+│   ├── items/                   ## 项目库（放置项目其他资产）
+│   ├── data/                    ## 数据库（List.md 清单；数据集名称.md 数据集简介）
+│   └── exp/                     ## 实验库（List.md 清单；实验名称.md 实验记录）
 ├── configs/                     # 配置层
-│   ├── data-processeds/         # 数据预处理配置
-│   ├── trains/                  # 模型训练配置
-│   └── inferences/              # 模型推理配置
+│   ├── prune/                   # 模型剪枝配置（纯剪枝不恢复）
+│   ├── train/                   # 模型训练配置（普通训练、微调、蒸馏、超参数优化）
+│   └── eval/                    # 模型验证配置
 ├── data/                        # 数据层
-│   ├── raw/                     # 原始数据
-│       └── 数据集名称/          
-│           ├── 数据集详情.md
-│           ├── train/
-│           ├── val/ 
-│           └── test/
-│   └── processed/               # 预处理数据
-│       └── 数据集名称/          
-│           ├── 预处理数据集详情.md
-│           ├── train/
-│           ├── val/ 
-│           └── test/
+│   └── 数据集名称/               ## 数据集
+│       ├── images/              ### 图像
+│           ├── train/           #### 训练集
+│           ├── val/             #### 验证集
+│           └── test/            #### 测试集
+│       └── labels/              ### 标注
+│           ├── train/           #### 训练集
+│           ├── val/             #### 验证集
+│           └── test/            #### 测试集
 ├── src/                         # 逻辑层
-│   ├── data/                    # 数据预处理逻辑
-│       ├── .py  
-│       ├── evals.py  
-│       └── models.py
-│   ├── evals/                   # 评估指标逻辑
-│       └── seg-common_eval.py
-│   ├── inferences/              # 模型推理逻辑
-│   ├── models/                  # 模型结构逻辑
-│       └── 模型名称/          
-│           ├── 模型结构详情.md   
-│           └── 模型名称.py
-│   ├── schemas/                 # 定义数据格式
-│       ├── datasets.py  
-│       ├── evals.py  
-│       └── models.py
-│   └── trains/                  # 模型训练逻辑
-│       ├── double-stages_train.py
-│       ├── few-sample_train.py  
-│       └── zero-sample_train.py
-├── results/                     # 实验结果层
-│   └── 实验名称-时间戳/          
-│       ├── 实验详情.md          
-│       └── 实验名称-时间戳.log
+│   ├── utils/                   ## 抽象工具逻辑
+│   ├── data/                    ## 自定义数据预处理逻辑
+│   ├── eval/                    ## 自定义评估指标逻辑
+│   ├── inference/               ## 自定义模型推理逻辑
+│   ├── model/                   ## 自定义模型结构逻辑
+│   ├── train/                   ## 自定义模型训练逻辑
+│   └── pipline/                 ## 自定义工作流逻辑
+├── runs/                        # 实验结果层
+│   └── 视觉任务名称/             ## 任务类型（segment、semantic）
+│       └── 实验名称/             ### 实验结果（实验名称示例：<模型>_<数据集>_<关键变量>_<YYYYMMDD-HHMM>）
 ├── scripts/                     # 执行层
-│   ├── train.py
-│   ├── inference.py
-│   └── data_processed.py
+│   └── train.py
+├── README.zh-CN.md              # 项目说明（中文）
 └── requirements.txt             # 依赖库安装清单
 ```
 
