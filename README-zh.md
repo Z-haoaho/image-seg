@@ -119,6 +119,8 @@
 | 11 | yolo11s-seg-SP50-KD-HHT | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-11/arg.yaml) | --- |
 | 12 | yolo11n-seg-KD-HHT | 640 | --- | --- | --- | --- | --- | [arg.yaml](assets/exps/Grapes/runs/exp-12/arg.yaml) | --- |
 
+*HT：基于遗传算法的超参数优化；HHT；基于人类知识先验的超参数优化；SP--：比例为 --% 的通道剪枝；FT：微调；KD：知识蒸馏*
+
 ### 2.3.2 可视化结果
 
 # 三、项目结构
