@@ -21,6 +21,13 @@
 
 计算资源：（CPU）Intel Core i9-14900HX；（GPU）RTX 4060 Laptop GPU
 
+## 1.1 目前可供选择的模型
+| 序号 | 实验名称 | Size（pixels） | Box mAP50-95（%） | Mask mAP50-95（%） | Speed CPU ONNX（ms） | Params（M） | FLOPs（B） | 配置 | .ONNX | .pt | 
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 01 | Baseline | 640 | 92.41 | 92.21 | 3582.8 ± 708.6 | 10.08 | 33.20 |  [arg.yaml](assets/exps/Grapes/runs/exp-01/arg.yaml) | [best.ONNX](assets/exps/Grapes/runs/exp-01/best.ONNX) | [best.pt](assets/exps/Grapes/runs/exp-01/best.pt) |
+| 02 | yolo11s-seg-SP50-KD | 640 | 91.73 | 91.48 | 3033.2 ± 636.0 | 8.42 | 30.53 | [arg.yaml](assets/exps/Grapes/runs/exp-09/arg.yaml) | [best.ONNX](assets/exps/Grapes/runs/exp-01/best.ONNX) | [best.pt](assets/exps/Grapes/runs/exp-01/best.pt) |
+| 03 | yolo11n-seg-KD | 640 | 89.82 | 89.92 | 1531.4 ± 371.3 | 2.86 | 9.86 | [arg.yaml](assets/exps/Grapes/runs/exp-10/arg.yaml) | [best.ONNX](assets/exps/Grapes/runs/exp-01/best.ONNX) | [best.pt](assets/exps/Grapes/runs/exp-01/best.pt) |
+
 # 二、项目内容
 ## 2.1 数据集
 <table>
